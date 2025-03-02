@@ -1,7 +1,9 @@
 # TODO Написать 2 класса с документацией и аннотацией типов
 
+import doctest
 
 # Класс №1 - Ноутбук
+
 
 class Laptop:
     """
@@ -106,10 +108,87 @@ class Kettle:
         self.water_capacity = min(self.water_capacity + amount, 100)
         return self.water_capacity
 
+# Класс №3 - Напиток (Обобщение имеющихся напитков)
+
+
+class Drink:
+    def __init__(self, name: str, volume: float, left: float):
+        """
+            Создание и подготовка к работе объекта
+            :param name: Название напитка
+            :param volume: Объем  в литрах
+            :param left: Остаток в литрах
+        """
+        if not isinstance(name, str):
+            raise TypeError("Название напитка должно быть типа Str")
+        if len(name) == 0:
+            raise ValueError("У напитка должно быть название")
+        self.name = name
+
+        if not isinstance(volume, (int, float)):
+            raise TypeError("Объем напитка должен быть типа float")
+        if volume < 0:
+            raise ValueError("Объем напитка должен быть больше нуля")
+        self.volume = volume
+
+        if not isinstance(left, (int, float)):
+            raise TypeError("Оcтаток напитка должен быть типа float")
+        if left <= 0:
+            raise ValueError("Остаток напитка должен не должен быть меньше нуля")
+        self.left = left
+
+    def is_empty(self) -> bool:
+        """
+            Функция которая проверяет кончился ли напиток
+            :return: Напиток если или нет?
+        """
+
+    def add_new(self, add_volume: float) -> None:
+        """
+            :param add_volume: Объем нового напитка
+            :raise ValueError: Если количество добавляемого напитка превышает свободное место, то вызываем ошибку
+        """
+        if not isinstance(add_volume, (int, float)):
+            raise TypeError("Объем нового напитка должен быть типа int или float")
+        if add_volume < 0:
+            raise ValueError("Объем нового напитка должен быть больше нуля")
+
+
+# Класс №4 - Мороженное
+
+class Ice:
+    def __init__(self, name: str, manufacturer: str):
+        """
+            :param name: Название
+            :param manufacturer: Производитель
+        """
+        if not isinstance(name, str):
+            raise TypeError("Название мороженного должно быть типа Str")
+        if len(name) == 0:
+            raise ValueError("У мороженного должно быть название")
+        self.name = name
+
+        if not isinstance(manufacturer, str):
+            raise TypeError("Название производителя должно быть типа Str")
+        if len(manufacturer) == 0:
+            raise ValueError("Производитель должен быть указан")
+        self.manufacturer = manufacturer
+
+        def is_empty(self) -> bool:
+            """
+            Функция которая проверяет является ли упаковка пустой
+            Возможно, сотрудник завода-изготовителя устал...
+            """
+
+    def temp(self, temperature: float) -> None:
+        """
+            :param temperature: Температура
+        """
+        if temperature > 4:
+            raise ValueError("Нарушение температурного режима")
+
 # TODO работоспособность экземпляров класса проверить с помощью doctest
 
-
-import doctest
 
 if __name__ == "__main__":
     doctest.testmod()
@@ -152,7 +231,7 @@ if __name__ == "__main__":
     except ValueError as e:
         print(f"Ошибка: {e}")  # Ожидается сообщение об ошибке
 
-        try:
-            kettle.power_on()  # Попытка включить чайник с некорректным значением жидкости
-        except ValueError as e:
-            print(f"Ошибка: {e}")  # Ожидается сообщение об ошибке
+    try:
+        kettle.power_on()  # Попытка включить чайник с некорректным значением жидкости
+    except ValueError as e:
+        print(f"Ошибка: {e}")  # Ожидается сообщение об ошибке
